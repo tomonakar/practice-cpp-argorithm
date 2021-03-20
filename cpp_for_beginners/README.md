@@ -91,3 +91,105 @@ vector<
        vector<char>(3)));    // 1次元の要素数
 
 ```
+
+# 参照
+### キーポイント
+- ｀参照先の型 &参照の名前 = 参照先;` で参照を宣言できる
+- 参照を宣言するときは、参照先を指定する必要がある
+- 関数の引数に参照を用いる場合は、その関数を呼び出すときに渡した変数が参照先になる
+- 参照先を後から変更することはできない
+- 引数が参照になっている関数を呼び出すことを参照渡しという
+- 参照私は、無駄なコピーを避けたり複数の結果を返したいときに便利
+
+```cpp
+int a = 0;
+int &b = a;
+```
+
+# 再帰関数
+
+```cpp
+// n を受け取って、0〜n の総和を計算して返す関数
+int sum (int n) {
+  // ベースケース
+  if (n == 0) {
+    return 0;
+  }
+
+  // 再帰ステップ
+  int s = sum(n - 1);
+  return s + n;
+}
+```
+
+## 実装例
+- a から　bまでの総和
+
+```cpp
+
+int sum_range(int a, int b) {
+  if (a == b) {
+    return a;
+  }
+
+  return sum_range(a,b - 1) + b;
+}
+
+int main() {
+  cout << sum_range(0, 4) << endl;
+  cout << sum_range(5, 8) << endl;
+}
+
+```
+
+- 配列の要素の総和
+
+```cpp
+int array_sum_from_i (vector<int> &data, int i) {
+  if (i == data.size()) {
+    return 0;
+  }
+  return array_sum_from_i(data, i + 1) + data.at(i);
+}
+
+int array_sum(vector<int> &data) {
+  return array_sum_from_i(data, 0);
+}
+```
+
+- Nが素数であるかの判定
+
+```cpp
+// i 〜 N-1 の範囲にNの約数があるか判定する
+bool has_divisor(int N, int i) {
+  // ベースケース１
+  if (i == N) {
+    // 対象となる整数が無いのでFalse
+    return false;
+  }
+
+  // ベースケース２
+  if (N % 2 == 0) {
+    return true;
+  }
+
+  // 再帰ステップ
+  return has_divisor(N, i + 1);
+}
+
+
+bool is_prime(int N) {
+  if (N == 1) {
+    return false
+  }
+  else if (N == 2) {
+    return true
+  }
+  else {
+    // 2〜(N-1)の範囲に約数がなければ、Nは素数
+    return !has_divisor(N, 2)
+  }
+}
+
+
+```
