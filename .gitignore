@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+
+# 実行ファイルを無視
+book_algorithm_solution/**
+!book_algorithm_solution/*.cpp
+!book_algorithm_solution/*.md
